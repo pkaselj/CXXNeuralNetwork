@@ -54,3 +54,6 @@ To create new types of layers (e.g. Convolutional 2D layers) implement new class
 
 ## Executing Neural Networks
 See example in [main.cpp](/main.cpp)
+
+## Exception Handling
+All custom exceptions are thrown as `NeuralNetException` in [NeuralNetException.hpp](/Exceptions/NeuralNetException.hpp) for the ease of handling and differentiating between intentional application expections and general exepctions.
