@@ -149,7 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Exceptions\NeuralNetException.hpp" />
-    <ClInclude Include="Layers\FullyConnected\FullyConnectedLayer_CUDA.cuh" />
+    <CudaCompile Include="Layers\FullyConnected\FullyConnectedLayer_CUDA.cuh" />
     <ClInclude Include="Layers\FullyConnected\FullyConnectedLayer_Serial.hpp" />
     <ClInclude Include="Layers\Base\Layer.hpp" />
     <ClInclude Include="Layers\Base\Layer1D.hpp" />
@@ -163,7 +163,9 @@
     <ClInclude Include="Utils\Weights.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Layers\FullyConnected\FullyConnectedLayer_CUDA.cu" />
+    <CudaCompile Include="Layers\FullyConnected\FullyConnectedLayer_CUDA.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
     <ClCompile Include="Layers\FullyConnected\FullyConnectedLayer_Serial.cpp" />
     <ClCompile Include="Layers\Base\Layer1D.cpp" />
     <ClCompile Include="Layers\Base\Layer2D.cpp" />

@@ -51,9 +51,6 @@
     <ClInclude Include="Layers\FullyConnected\FullyConnectedLayer_Serial.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Layers\FullyConnected\FullyConnectedLayer_CUDA.cuh">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Layers\FullyConnected\FullyConnected.cpp">
@@ -83,8 +80,13 @@
     <ClCompile Include="Layers\FullyConnected\FullyConnectedLayer_Serial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Layers\FullyConnected\FullyConnectedLayer_CUDA.cu">
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="Layers\FullyConnected\FullyConnectedLayer_CUDA.cu">
       <Filter>Source Files</Filter>
-    </ClCompile>
+    </CudaCompile>
+    <CudaCompile Include="Layers\FullyConnected\FullyConnectedLayer_CUDA.cuh">
+      <Filter>Header Files</Filter>
+    </CudaCompile>
   </ItemGroup>
 </Project>
