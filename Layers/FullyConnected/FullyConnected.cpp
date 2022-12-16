@@ -33,32 +33,18 @@ void FullyConnectedLayer::ApplyTransform(void)
     auto& next_layer_neuron_buffer = this->GetNextLayer()->GetNeuronBuffer();
     auto& current_layer_neuron_buffer = this->GetNeuronBuffer();
 
-    memset(&next_layer_neuron_buffer, 0, y);
+    memset(next_layer_neuron_buffer.data(), 0, y);
 
-    for (int i = 0; i < x; i++)
-    {
-        for (int j = 0; j < y; j++)
-        {
-            auto& current_neuron = current_layer_neuron_buffer.at(i);
-            auto& weight = m_weights.m_values.at(i).at(j);
-            auto& bias = m_biases.m_values.at(j);
-            auto& next_neuron = next_layer_neuron_buffer.at(j);
-
-            next_neuron += current_neuron * weight;
-        }
-    }
-
-    for (int j = 0; j < y; j++)
-    {
-        auto& bias = m_biases.m_values.at(j);
-        auto& next_neuron = next_layer_neuron_buffer.at(j);
-
-        next_neuron += bias;
-    }
+    PerformMatrixMultiplication(x, y, current_layer_neuron_buffer, m_weights.m_values, m_biases.m_values, next_layer_neuron_buffer);
 }
 
 FullyConnectedLayer& FullyConnectedLayer::LoadWeights(const Weights& weights)
 {
+    if (nullptr == GetNextLayer())
+    {
+        throw NeuralNetException("Set the next layer before loading weights!");
+    }
+
     Weights::Size expected_size = { Size(), GetNextLayer()->Size() };
     if (weights.m_size != expected_size)
     {
@@ -76,6 +62,11 @@ FullyConnectedLayer& FullyConnectedLayer::LoadWeights(const Weights& weights)
 
 FullyConnectedLayer& FullyConnectedLayer::LoadBiases(const Biases& biases)
 {
+    if (nullptr == GetNextLayer())
+    {
+        throw NeuralNetException("Set the next layer before loading biases!");
+    }
+
     int expected_size = GetNextLayer()->Size();
     if (biases.m_size != expected_size)
     {

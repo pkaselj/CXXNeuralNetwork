@@ -1,35 +1,57 @@
 #include <iostream>
-#include <Layers/FullyConnected/FullyConnected.hpp>
+#include <Layers/FullyConnected/FullyConnectedLayer_Serial.hpp>
+#include <Layers/IO/Input.hpp>
+#include <Layers/IO/Output.hpp>
+#include <Layers/Activation/ReLU.h>
 
 int main()
 {
-	FullyConnectedLayer layer1 = FullyConnectedLayer(3);
-	FullyConnectedLayer layer2 = FullyConnectedLayer(4);
+	/* LAYER DEFINITIONS */
+	InputLayer1D layer_input = InputLayer1D(3);
+	FullyConnectedLayer_Serial layer_hidden_1 = FullyConnectedLayer_Serial(3);
+	ReLU layer_relu = ReLU(4);
+	FullyConnectedLayer_Serial layer_hidden_2 = FullyConnectedLayer_Serial(4);
+	OutputLayer1D layer_output = OutputLayer1D(5);
 
-	Weights layer1_weights = Weights::FromArray(
+	/* LAYER CONNECTIONS */
+	(&layer_input)
+		->SetNextLayer(&layer_hidden_1)
+		->SetNextLayer(&layer_relu)
+		->SetNextLayer(&layer_hidden_2)
+		->SetNextLayer(&layer_output);
+
+	/* LAYER WEIGHT AND BIAS INITIALIZATION */
+
+	// Hidden Layer 1
+	layer_hidden_1.LoadWeights(
+		Weights::FromArray(
 		{
 			{1, 2, -1, 1},
 			{-1, 3, 1, 2},
 			{1, 1, 2, -2},
-		},
-		layer1.Size(),
-		layer2.Size()
+		})
+	).LoadBiases(
+		Biases::FromArray({ 0, 1, 1, 0 })
 	);
 
-	Biases layer1_biases = Biases::FromArray({0, 1, 1, 0}, layer2.Size());
+	// Hidden Layer 2
+	layer_hidden_2.LoadWeights(
+		Weights::FromArray(
+		{
+			{1, 2, 5, -1, 2},
+			{0, 1, -2, 3, 1},
+			{1, 1, -1, -1, 2},
+			{0, 1, -1, -2, 1},
+		})
+	).LoadBiases(
+		Biases::FromArray({ 1, 2, 0, -1, 1 })
+	);
 
-	layer1.SetNextLayer(layer2);
+	/* PROCESSING NEURAL NETWORK INPUT */
+	layer_input.ProcessInput({ 1, -1, 2 });
 
-	layer1.LoadWeights(layer1_weights).LoadBiases(layer1_biases);
-
-	auto& layer1_input = layer1.GetNeuronBuffer();
-	layer1_input[0] = 1;
-	layer1_input[1] = -1;
-	layer1_input[2] = 2;
-
-	layer1.ApplyTransform();
-
-	for(auto neuron : layer2.GetNeuronBuffer())
+	/* DISPLAYING NEURAL NETWORK OUTPUT */
+	for(auto neuron : layer_output.GetNeuronBuffer())
 	{
 		std::cout << neuron << std::endl;
 	}

@@ -27,7 +27,7 @@ public:
     Size m_size;
     Vector2D m_values;
 
-    static Weights FromArray(const Vector2D& arr, int N_current, int N_next);
+    static Weights FromArray(const Vector2D& arr);
 
 private:
     Weights(int N_current, int N_next);

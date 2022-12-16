@@ -16,8 +16,11 @@ bool Weights::Size::operator!=(const Weights::Size& other) const
 }
 
 
-Weights Weights::FromArray(const Vector2D& arr, int N_current, int N_next)
+Weights Weights::FromArray(const Vector2D& arr)
 {
+    int N_current = arr.size();
+    int N_next = arr.at(0).size();
+
     auto temp = Weights(N_current, N_next);
     temp.m_values = arr;
     return temp;

@@ -19,9 +19,19 @@ public:
     FullyConnectedLayer& LoadWeights(const Weights& weights);
     FullyConnectedLayer& LoadBiases(const Biases& biases);
 
-protected:
+private:
     Weights m_weights;
     Biases m_biases;
+
+protected:
+
+    virtual void PerformMatrixMultiplication(
+        int X, int Y,
+        const Vector1D& CurrentLayerNeurons,
+        const Vector2D& Weights,
+        const Vector1D& Biases,
+              Vector1D& NextLayerNeurons
+    ) = 0;
 };
 
 

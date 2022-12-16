@@ -24,9 +24,6 @@
     <ClInclude Include="Layers\FullyConnected\FullyConnected.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Network\NeuralNetwork.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\Weights.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -42,12 +39,21 @@
     <ClInclude Include="Types\Types.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Layers\IO\Input.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Layers\IO\Output.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Layers\Activation\ReLU.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Layers\FullyConnected\FullyConnectedLayer_Serial.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Layers\FullyConnected\FullyConnected.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Network\NeuralNetwork.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -63,6 +69,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Layers\Base\Layer2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Layers\IO\Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Layers\Activation\ReLU.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Layers\FullyConnected\FullyConnectedLayer_Serial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

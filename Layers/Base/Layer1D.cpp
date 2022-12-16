@@ -15,8 +15,8 @@ Layer1D::Layer1D(int size)
 	m_neuron_buffer = Vector1D(m_size);
 }
 
-Layer1D& Layer1D::SetNextLayer(Layer1D& next_layer)
+Layer1D* Layer1D::SetNextLayer(Layer1D* p_next_layer)
 {
-	m_p_next_layer = &next_layer;
-	return next_layer;
+	m_p_next_layer = p_next_layer;
+	return p_next_layer;
 }

@@ -5,8 +5,9 @@
 #include <cstring>
 #include <utility>
 
-Biases Biases::FromArray(const Vector1D& arr, int N)
+Biases Biases::FromArray(const Vector1D& arr)
 {
+    int N = arr.size();
     auto temp = Biases(N);
     temp.m_values = arr;
     return temp;

@@ -16,12 +16,12 @@ public:
 		int y;
 	};
 
-	Layer2D& SetNextLayer(Layer2D& next_layer);
+	Layer2D* SetNextLayer(Layer2D* p_next_layer);
 	Layer* GetNextLayerGeneric() const override { return m_p_next_layer; }
 	Layer2D* GetNextLayer() const { return m_p_next_layer; }
 	TSize Size() const { return m_size; }
 
-	Vector2D GetNeuronBuffer() const { return m_neuron_buffer; }
+	Vector2D& GetNeuronBuffer() { return m_neuron_buffer; }
 
 private:
 	TSize m_size;

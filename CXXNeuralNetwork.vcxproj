@@ -144,21 +144,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Exceptions\NeuralNetException.hpp" />
+    <ClInclude Include="Layers\FullyConnected\FullyConnectedLayer_Serial.hpp" />
     <ClInclude Include="Layers\Base\Layer.hpp" />
     <ClInclude Include="Layers\Base\Layer1D.hpp" />
     <ClInclude Include="Layers\Base\Layer2D.hpp" />
     <ClInclude Include="Layers\FullyConnected\FullyConnected.hpp" />
-    <ClInclude Include="Network\NeuralNetwork.hpp" />
+    <ClInclude Include="Layers\IO\Input.hpp" />
+    <ClInclude Include="Layers\IO\Output.hpp" />
+    <ClInclude Include="Layers\Activation\ReLU.h" />
     <ClInclude Include="Types\Types.hpp" />
     <ClInclude Include="Utils\Biases.hpp" />
     <ClInclude Include="Utils\Weights.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Layers\FullyConnected\FullyConnectedLayer_Serial.cpp" />
     <ClCompile Include="Layers\Base\Layer1D.cpp" />
     <ClCompile Include="Layers\Base\Layer2D.cpp" />
     <ClCompile Include="Layers\FullyConnected\FullyConnected.cpp" />
+    <ClCompile Include="Layers\IO\Input.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Network\NeuralNetwork.cpp" />
+    <ClCompile Include="Layers\Activation\ReLU.cpp" />
     <ClCompile Include="Utils\Biases.cpp" />
     <ClCompile Include="Utils\Weights.cpp" />
   </ItemGroup>

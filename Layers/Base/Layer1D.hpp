@@ -11,7 +11,7 @@ public:
 	Layer1D(int size);
 	virtual ~Layer1D() { }
 
-	Layer1D& SetNextLayer(Layer1D& next_layer);
+	Layer1D* SetNextLayer(Layer1D* p_next_layer);
 	Layer* GetNextLayerGeneric() const override { return m_p_next_layer; }
 	Layer1D* GetNextLayer() const { return m_p_next_layer; }
 	int Size() const { return m_size; };

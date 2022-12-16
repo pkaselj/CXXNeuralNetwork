@@ -16,8 +16,8 @@ Layer2D::Layer2D(int x, int y)
 	m_neuron_buffer = Vector2D(x * y);
 }
 
-Layer2D& Layer2D::SetNextLayer(Layer2D& next_layer)
+Layer2D* Layer2D::SetNextLayer(Layer2D* p_next_layer)
 {
-	m_p_next_layer = &next_layer;
-	return next_layer;
+	m_p_next_layer = p_next_layer;
+	return p_next_layer;
 }

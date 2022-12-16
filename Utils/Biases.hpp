@@ -16,7 +16,7 @@ public:
     int m_size;
     Vector1D m_values;
 
-    static Biases FromArray(const Vector1D& arr, int N);
+    static Biases FromArray(const Vector1D& arr);
 
 private:
     Biases(int N);
