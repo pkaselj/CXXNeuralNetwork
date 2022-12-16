@@ -1,4 +1,4 @@
-#include "ReLU.h"
+#include "ReLU.hpp"
 
 #include <Exceptions/NeuralNetException.hpp>
 

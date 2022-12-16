@@ -1,5 +1,6 @@
 #include <iostream>
 #include <Layers/FullyConnected/FullyConnectedLayer_Serial.hpp>
+#include <Layers/FullyConnected/FullyConnectedLayer_CUDA.cuh>
 #include <Layers/IO/Input.hpp>
 #include <Layers/IO/Output.hpp>
 #include <Layers/Activation/ReLU.hpp>
@@ -8,7 +9,8 @@ int main()
 {
 	/* LAYER DEFINITIONS */
 	InputLayer1D layer_input = InputLayer1D(3);
-	FullyConnectedLayer_Serial layer_hidden_1 = FullyConnectedLayer_Serial(3);
+	//FullyConnectedLayer_Serial layer_hidden_1 = FullyConnectedLayer_Serial(3);
+	FullyConnectedLayer_CUDA layer_hidden_1 = FullyConnectedLayer_CUDA(3);
 	ReLU layer_relu = ReLU(4);
 	FullyConnectedLayer_Serial layer_hidden_2 = FullyConnectedLayer_Serial(4);
 	OutputLayer1D layer_output = OutputLayer1D(5);
