@@ -151,7 +151,7 @@
     <ClInclude Include="Layers\FullyConnected\FullyConnected.hpp" />
     <ClInclude Include="Layers\IO\Input.hpp" />
     <ClInclude Include="Layers\IO\Output.hpp" />
-    <ClInclude Include="Layers\Activation\ReLU.h" />
+    <ClInclude Include="Layers\Activation\ReLU.hpp" />
     <ClInclude Include="Types\Types.hpp" />
     <ClInclude Include="Utils\Biases.hpp" />
     <ClInclude Include="Utils\Weights.hpp" />

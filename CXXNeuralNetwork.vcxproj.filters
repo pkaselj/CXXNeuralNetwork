@@ -45,7 +45,7 @@
     <ClInclude Include="Layers\IO\Output.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Layers\Activation\ReLU.h">
+    <ClInclude Include="Layers\Activation\ReLU.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Layers\FullyConnected\FullyConnectedLayer_Serial.hpp">

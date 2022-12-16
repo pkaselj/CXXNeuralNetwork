@@ -2,7 +2,7 @@
 #include <Layers/FullyConnected/FullyConnectedLayer_Serial.hpp>
 #include <Layers/IO/Input.hpp>
 #include <Layers/IO/Output.hpp>
-#include <Layers/Activation/ReLU.h>
+#include <Layers/Activation/ReLU.hpp>
 
 int main()
 {
