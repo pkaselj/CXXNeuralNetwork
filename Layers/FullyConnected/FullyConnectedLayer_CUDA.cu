@@ -16,16 +16,33 @@ static __global__ void PerformMatrixMultiplicationInCUDA(
 	double* NextLayerNeurons
 )
 {
-	int i = blockIdx.x * blockDim.x + threadIdx.x;
-	int j = blockIdx.y * blockDim.y + threadIdx.y;
+	int col = blockIdx.x * blockDim.x + threadIdx.x;
 
-	printf("i = %d, j = %d, N = %lf, P = %lf, W = %lf\n", i, j, NextLayerNeurons[i], CurrentLayerNeurons[i], Weights[i * Y + j]);
+	// Guard against extra threads
+	if (col < Y) {
+		// Calculate dot product of CurrentLayer vector and Weight's "col" column
+		for (int i = 0; i < X; i++)
+		{
+#if defined(_DEBUG)
+			printf("col = %d, i = %d, N[%d] = C[%d] (%lf) * W[%d] (%lf) = (%lf)\n",
+				col, i,
+				col,
+				i, CurrentLayerNeurons[i],
+				i * Y + col, Weights[i * Y + col],
+				CurrentLayerNeurons[i] * Weights[i * Y + col]
+			);
+#endif
 
-	NextLayerNeurons[i] += CurrentLayerNeurons[i] * Weights[i * Y + j];
+			NextLayerNeurons[col] += CurrentLayerNeurons[i] * Weights[i * Y + col];
+		}
+		// Add Bias
+		NextLayerNeurons[col] += Biases[col];
 
-	//printf("%lf\n", NextLayerNeurons[j]);
-
-	//NextLayerNeurons[i] = sum + Biases[i];
+#if defined(_DEBUG)
+		printf("col = %d, N = %lf\n", col, NextLayerNeurons[col]);
+#endif
+	}
+	
 
 }
 
@@ -37,36 +54,95 @@ void FullyConnectedLayer_CUDA::PerformMatrixMultiplication(
 	Vector1D& NextLayerNeurons
 )
 {
-	// Launching the kernel
-	dim3 threadsPerBlock(X, Y);
-	dim3 numBlocks(1);
-
 	double* p_current_layer;
 	double* p_weights;
 	double* p_biases;
 	double* p_next_layer;
 
 
+	// -- Copy Weights to Device
+
 	int size_of_array = X * Y * sizeof(double);
-	cudaMalloc((void**)&p_weights, size_of_array);
+
+	cudaMalloc(
+		(void**)&p_weights,	// Destination
+		size_of_array		// Size in Bytes
+	);
+
 	for (int i = 0; i < X; i++)
 	{
-		cudaMemcpy(p_weights + Y * i, Weights[i].data(), Y * sizeof(double), cudaMemcpyHostToDevice);
+		cudaMemcpy(
+			p_weights + Y * i,		// Destination Row
+			Weights[i].data(),		// Source Row
+			Y * sizeof(double),		// Size in Bytes
+			cudaMemcpyHostToDevice	// Copy Direction
+		);
 	}
 
-	cudaMalloc((void**)&p_current_layer, CurrentLayerNeurons.size() * sizeof(double));
-	cudaMemcpy(p_current_layer, CurrentLayerNeurons.data(), CurrentLayerNeurons.size() * sizeof(double), cudaMemcpyHostToDevice);
+	// -- Copy Current Layer Neuron Values to Device
 
-	cudaMalloc((void**)&p_biases, Biases.size() * sizeof(double));
-	cudaMemcpy(p_biases, Biases.data(), Biases.size() * sizeof(double), cudaMemcpyHostToDevice);
+	cudaMalloc(
+		(void**)&p_current_layer,						// Destination
+		CurrentLayerNeurons.size() * sizeof(double)		// Size in Bytes
+	);
 
-	cudaMalloc((void**)&p_next_layer, NextLayerNeurons.size() * sizeof(double));
-	cudaMemcpy(p_next_layer, NextLayerNeurons.data(), NextLayerNeurons.size() * sizeof(double), cudaMemcpyHostToDevice);
+	cudaMemcpy(
+		(void*)p_current_layer,						   // Destination Row
+		(const void*)CurrentLayerNeurons.data(),	   // Source Row
+		CurrentLayerNeurons.size() * sizeof(double),   // Size in Bytes
+		cudaMemcpyHostToDevice						   // Copy Direction
+	);
+
+	cudaMalloc(
+		(void**)&p_biases,					   // Destination
+		Biases.size() * sizeof(double)		   // Size in Bytes
+	);
+
+	// -- Copy Bias Values to Device
+
+	cudaMemcpy(
+		(void*)p_biases,					  // Destination Row
+		(const void*)Biases.data(),			  // Source Row
+		Biases.size() * sizeof(double),		  // Size in Bytes
+		cudaMemcpyHostToDevice				  // Copy Direction
+	);
+
+	// -- Allocate Buffer for Results (Values of Next Layer)
+
+	cudaMalloc(
+		(void**)&p_next_layer,						  // Destination
+		NextLayerNeurons.size() * sizeof(double)	  // Size in Bytes
+	);
+
+	//cudaMemcpy(
+	//	(void*)p_next_layer,						   // Destination Row
+	//	(const void*)NextLayerNeurons.data(),		   // Source Row
+	//	NextLayerNeurons.size() * sizeof(double),	   // Size in Bytes
+	//	cudaMemcpyHostToDevice						   // Copy Direction
+	//);
 
 
-	PerformMatrixMultiplicationInCUDA <<<numBlocks, threadsPerBlock >>>(X, Y, p_current_layer, p_weights, p_biases, p_next_layer);
+	// -- Perform Matrix Multiplication on GPU
+	int threadsPerBlock = 16;
+	int numBlocks = ceil((1.0f * Y) / threadsPerBlock);
 
-	cudaMemcpy(NextLayerNeurons.data(), p_next_layer, NextLayerNeurons.size(), cudaMemcpyDeviceToHost);
+	PerformMatrixMultiplicationInCUDA <<<numBlocks, threadsPerBlock >>>(
+		X, Y,
+		p_current_layer,
+		p_weights,
+		p_biases,
+		p_next_layer
+	);
+
+	cudaMemcpy(
+		NextLayerNeurons.data(),					// Destination Row
+		p_next_layer,								// Source Row
+		NextLayerNeurons.size() * sizeof(double),	// Size in Bytes
+		cudaMemcpyDeviceToHost					    // Copy Direction
+	);
+
+
+	// -- Deallocate Device Buffers
 
 	cudaFree(p_current_layer);
 	cudaFree(p_biases);
