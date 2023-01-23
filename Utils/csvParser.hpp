@@ -3,9 +3,9 @@
 
 #include <vector>
 #include <string>
+#include <Types/Types.hpp>
 
-
-std::vector<std::vector<double>> ParseCsv2D(std::string filename);
-std::vector<double> ParseCsv1D(std::string filename);
+Vector2D ParseCsv2D(std::string filename);
+Vector1D ParseCsv1D(std::string filename);
 
 #endif

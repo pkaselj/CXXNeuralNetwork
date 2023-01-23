@@ -160,8 +160,8 @@
     <ClInclude Include="Layers\Activation\ReLU.hpp" />
     <ClInclude Include="Types\Types.hpp" />
     <ClInclude Include="Utils\Biases.hpp" />
-    <ClInclude Include="Utils\csvParser.hpp" />
     <ClInclude Include="Utils\Weights.hpp" />
+	<ClInclude Include="Utils\csvParser.hpp" />
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="Layers\FullyConnected\FullyConnectedLayer_CUDA.cu">
@@ -175,8 +175,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Layers\Activation\ReLU.cpp" />
     <ClCompile Include="Utils\Biases.cpp" />
-    <ClCompile Include="Utils\csvParser.cpp" />
     <ClCompile Include="Utils\Weights.cpp" />
+	<ClInclude Include="Utils\csvParser.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
