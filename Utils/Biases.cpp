@@ -1,6 +1,7 @@
 #include "Biases.hpp"
 
 #include <Exceptions/NeuralNetException.hpp>
+#include <Utils/csvParser.hpp>
 
 #include <cstring>
 #include <utility>
@@ -11,6 +12,12 @@ Biases Biases::FromArray(const Vector1D& arr)
     auto temp = Biases(N);
     temp.m_values = arr;
     return temp;
+}
+
+Biases Biases::FromCSV(const std::string& filename)
+{
+    auto data = ParseCsv1D(filename);
+    return Biases::FromArray(data);
 }
 
 Biases::Biases()

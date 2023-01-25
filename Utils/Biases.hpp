@@ -2,6 +2,7 @@
 #define BIASES_HPP
 
 #include <Types/Types.hpp>
+#include <string>
 
 class Biases
 {
@@ -17,6 +18,7 @@ public:
     Vector1D m_values;
 
     static Biases FromArray(const Vector1D& arr);
+    static Biases FromCSV(const std::string& filename);
 
 private:
     Biases(int N);

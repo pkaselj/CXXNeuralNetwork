@@ -1,5 +1,7 @@
 #include "Weights.hpp"
+
 #include <Exceptions/NeuralNetException.hpp>
+#include <Utils/csvParser.hpp>
 
 #include <utility>
 #include <cstring>
@@ -24,6 +26,12 @@ Weights Weights::FromArray(const Vector2D& arr)
     auto temp = Weights(N_current, N_next);
     temp.m_values = arr;
     return temp;
+}
+
+Weights Weights::FromCSV(const std::string& filename)
+{
+    auto data = ParseCsv2D(filename);
+    return Weights::FromArray(data);
 }
 
 Weights::Weights()

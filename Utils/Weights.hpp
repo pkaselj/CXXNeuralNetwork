@@ -2,6 +2,7 @@
 #define WEIGHTS_HPP
 
 #include <Types/Types.hpp>
+#include <string>
 
 class Weights
 {
@@ -28,6 +29,7 @@ public:
     Vector2D m_values;
 
     static Weights FromArray(const Vector2D& arr);
+    static Weights FromCSV(const std::string& filename);
 
 private:
     Weights(int N_current, int N_next);
