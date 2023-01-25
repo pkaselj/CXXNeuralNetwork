@@ -8,6 +8,9 @@
 #include <memory>
 #include <cstdlib>
 
+
+#include <chrono>
+#include <iostream>
 static __global__ void PerformMatrixMultiplicationInCUDA(
 	int X, int Y,
 	double* CurrentLayerNeurons,
@@ -126,6 +129,8 @@ void FullyConnectedLayer_CUDA::PerformMatrixMultiplication(
 	int threadsPerBlock = 16;
 	int numBlocks = ceil((1.0f * Y) / threadsPerBlock);
 
+	auto start = std::chrono::high_resolution_clock::now();
+
 	PerformMatrixMultiplicationInCUDA <<<numBlocks, threadsPerBlock >>>(
 		X, Y,
 		p_current_layer,
@@ -133,6 +138,11 @@ void FullyConnectedLayer_CUDA::PerformMatrixMultiplication(
 		p_biases,
 		p_next_layer
 	);
+
+	/* PROCESSING NEURAL NETWORK INPUT */
+	auto finish = std::chrono::high_resolution_clock::now();
+	auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(finish - start);
+	std::cout << microseconds.count() << " us\n";
 
 	cudaMemcpy(
 		NextLayerNeurons.data(),					// Destination Row

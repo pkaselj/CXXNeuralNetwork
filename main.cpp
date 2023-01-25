@@ -6,7 +6,16 @@
 #include <Layers/Activation/ReLU.hpp>
 #include <Utils/csvParser.hpp>
 #include <Types/Types.hpp>
+#include <chrono>
 
+
+//#define USE_PARALLEL
+
+#if defined(USE_PARALLEL)
+#define FullyConnectedLayer FullyConnectedLayer_CUDA
+#else
+#define FullyConnectedLayer FullyConnectedLayer_Serial
+#endif
 
 int main()
 {
@@ -33,26 +42,26 @@ int main()
 
 
 	InputLayer1D layer_input = InputLayer1D(784);
-	FullyConnectedLayer_CUDA layer_hidden_0 = FullyConnectedLayer_CUDA(784);
-	ReLU layer_relu_0 = ReLU(128);
-	FullyConnectedLayer_CUDA layer_hidden_1 = FullyConnectedLayer_CUDA(128);
-	ReLU layer_relu_1 = ReLU(64);
-	FullyConnectedLayer_CUDA layer_hidden_2 = FullyConnectedLayer_CUDA(64);
-	ReLU layer_relu_2 = ReLU(32);
-	FullyConnectedLayer_CUDA layer_hidden_3 = FullyConnectedLayer_CUDA(32);
-	ReLU layer_relu_3 = ReLU(10);
+	FullyConnectedLayer layer_hidden_0 = FullyConnectedLayer(784);
+	//ReLU layer_relu_0 = ReLU(128);
+	FullyConnectedLayer layer_hidden_1 = FullyConnectedLayer(128);
+	//ReLU layer_relu_1 = ReLU(64);
+	FullyConnectedLayer layer_hidden_2 = FullyConnectedLayer(64);
+	//ReLU layer_relu_2 = ReLU(32);
+	FullyConnectedLayer layer_hidden_3 = FullyConnectedLayer(32);
+	//ReLU layer_relu_3 = ReLU(10);
 	OutputLayer1D layer_output = OutputLayer1D(10);
 
 	/* LAYER CONNECTIONS */
 	(&layer_input)
 		->SetNextLayer(&layer_hidden_0)
-		->SetNextLayer(&layer_relu_0)
+		//->SetNextLayer(&layer_relu_0)
 		->SetNextLayer(&layer_hidden_1)
-		->SetNextLayer(&layer_relu_1)
+		//->SetNextLayer(&layer_relu_1)
 		->SetNextLayer(&layer_hidden_2)
-		->SetNextLayer(&layer_relu_2)
+		//->SetNextLayer(&layer_relu_2)
 		->SetNextLayer(&layer_hidden_3)
-		->SetNextLayer(&layer_relu_3)
+		//->SetNextLayer(&layer_relu_3)
 		->SetNextLayer(&layer_output);
 
 	/* LAYER WEIGHT AND BIAS INITIALIZATION */
@@ -86,10 +95,20 @@ int main()
 	//	Biases::FromArray({ 1, 2, 0, -1, 1 })
 	//);
 
-	/* PROCESSING NEURAL NETWORK INPUT */
-	layer_input.ProcessInput(img);
-
 	
+	auto start = std::chrono::high_resolution_clock::now();
+	/* PROCESSING NEURAL NETWORK INPUT */
+
+	for (int i = 0; i < 100; i++)
+	{
+		layer_input.ProcessInput(img);
+	}
+	
+
+
+	auto finish = std::chrono::high_resolution_clock::now();
+	auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(finish - start);
+	std::cout << microseconds.count() << " us --main\n";
 
 	/* DISPLAYING NEURAL NETWORK OUTPUT */
 	for(auto neuron : layer_output.GetNeuronBuffer())

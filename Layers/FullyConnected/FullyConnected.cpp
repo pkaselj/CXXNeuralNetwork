@@ -36,6 +36,11 @@ void FullyConnectedLayer::ApplyTransform(void)
     memset(next_layer_neuron_buffer.data(), 0, y);
 
     PerformMatrixMultiplication(x, y, current_layer_neuron_buffer, m_weights.m_values, m_biases.m_values, next_layer_neuron_buffer);
+
+    for(auto& number : next_layer_neuron_buffer)
+    {
+        number = (number > 0) ? number : 0;
+    }
 }
 
 FullyConnectedLayer& FullyConnectedLayer::LoadWeights(const Weights& weights)
