@@ -95,4 +95,16 @@
       <Filter>Header Files</Filter>
     </CudaCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\dense_0_bias_0.csv" />
+    <None Include="Data\dense_0_kernel_0.csv" />
+    <None Include="Data\dense_1_bias_0.csv" />
+    <None Include="Data\dense_1_kernel_0.csv" />
+    <None Include="Data\dense_2_bias_0.csv" />
+    <None Include="Data\dense_2_kernel_0.csv" />
+    <None Include="Data\dense_3_bias_0.csv" />
+    <None Include="Data\dense_3_kernel_0.csv" />
+    <None Include="Data\img1.csv" />
+    <None Include="Data\img7.csv" />
+  </ItemGroup>
 </Project>

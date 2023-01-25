@@ -1,37 +1,39 @@
 #include <iostream>
-#include <Layers/FullyConnected/FullyConnectedLayer_Serial.hpp>
+#include <chrono>
+
+//#define USE_PARALLEL
+
+#if defined(USE_PARALLEL)
 #include <Layers/FullyConnected/FullyConnectedLayer_CUDA.cuh>
+#define FullyConnectedLayer FullyConnectedLayer_CUDA
+#else
+#include <Layers/FullyConnected/FullyConnectedLayer_Serial.hpp>
+#define FullyConnectedLayer FullyConnectedLayer_Serial
+#endif
+
+
 #include <Layers/IO/Input.hpp>
 #include <Layers/IO/Output.hpp>
 #include <Layers/Activation/ReLU.hpp>
 #include <Utils/csvParser.hpp>
 #include <Types/Types.hpp>
-#include <chrono>
 
-
-//#define USE_PARALLEL
-
-#if defined(USE_PARALLEL)
-#define FullyConnectedLayer FullyConnectedLayer_CUDA
-#else
-#define FullyConnectedLayer FullyConnectedLayer_Serial
-#endif
 
 int main()
 {
-	Vector2D l0_w = ParseCsv2D("C:\\Users\\Admin-PC\\Desktop\\PP\\CXXNeuralNetwork\\Data\\dense_0_kernel_0.csv");
-	Vector1D l0_b = ParseCsv1D("C:\\Users\\Admin-PC\\Desktop\\PP\\CXXNeuralNetwork\\Data\\dense_0_bias_0.csv");
+	Vector2D l0_w = ParseCsv2D("Data\\dense_0_kernel_0.csv");
+	Vector1D l0_b = ParseCsv1D("Data\\dense_0_bias_0.csv");
 
-	Vector2D l1_w = ParseCsv2D("C:\\Users\\Admin-PC\\Desktop\\PP\\CXXNeuralNetwork\\Data\\dense_1_kernel_0.csv");
-	Vector1D l1_b = ParseCsv1D("C:\\Users\\Admin-PC\\Desktop\\PP\\CXXNeuralNetwork\\Data\\dense_1_bias_0.csv");
+	Vector2D l1_w = ParseCsv2D("Data\\dense_1_kernel_0.csv");
+	Vector1D l1_b = ParseCsv1D("Data\\dense_1_bias_0.csv");
 
-	Vector2D l2_w = ParseCsv2D("C:\\Users\\Admin-PC\\Desktop\\PP\\CXXNeuralNetwork\\Data\\dense_2_kernel_0.csv");
-	Vector1D l2_b = ParseCsv1D("C:\\Users\\Admin-PC\\Desktop\\PP\\CXXNeuralNetwork\\Data\\dense_2_bias_0.csv");
+	Vector2D l2_w = ParseCsv2D("Data\\dense_2_kernel_0.csv");
+	Vector1D l2_b = ParseCsv1D("Data\\dense_2_bias_0.csv");
 
-	Vector2D l3_w = ParseCsv2D("C:\\Users\\Admin-PC\\Desktop\\PP\\CXXNeuralNetwork\\Data\\dense_3_kernel_0.csv");
-	Vector1D l3_b = ParseCsv1D("C:\\Users\\Admin-PC\\Desktop\\PP\\CXXNeuralNetwork\\Data\\dense_3_bias_0.csv");
+	Vector2D l3_w = ParseCsv2D("Data\\dense_3_kernel_0.csv");
+	Vector1D l3_b = ParseCsv1D("Data\\dense_3_bias_0.csv");
 
-	Vector1D img = ParseCsv1D("C:\\Users\\Admin-PC\\Desktop\\PP\\CXXNeuralNetwork\\Data\\img1.csv");
+	Vector1D img = ParseCsv1D("Data\\img1.csv");
 	/* LAYER DEFINITIONS */
 	//InputLayer1D layer_input = InputLayer1D(3);
 	//FullyConnectedLayer_Serial layer_hidden_1 = FullyConnectedLayer_Serial(3);

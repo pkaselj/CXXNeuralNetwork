@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -54,7 +54,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 11.7.props" />
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 11.5.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -179,8 +179,45 @@
     <ClCompile Include="Utils\csvParser.cpp" />
     <ClCompile Include="Utils\Weights.cpp" />
   </ItemGroup>
+	<ItemGroup Label="Data">
+		<Content Include="Data\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+  <ItemGroup>
+    <None Include="Data\dense_0_bias_0.csv">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Data\dense_0_kernel_0.csv">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Data\dense_1_bias_0.csv">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Data\dense_1_kernel_0.csv">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Data\dense_2_bias_0.csv">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Data\dense_2_kernel_0.csv">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Data\dense_3_bias_0.csv">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Data\dense_3_kernel_0.csv">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Data\img1.csv">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Data\img7.csv">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 11.7.targets" />
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 11.5.targets" />
   </ImportGroup>
 </Project>
