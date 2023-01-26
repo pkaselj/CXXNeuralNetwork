@@ -3,6 +3,8 @@
 
 #include <global_settings.hpp>
 
+#define N_ITERATIONS 1
+
 #if defined(USE_CUDA)
 #include <Layers/FullyConnected/FullyConnectedLayer_CUDA.cuh>
 #define FullyConnectedLayer FullyConnectedLayer_CUDA
@@ -38,7 +40,7 @@ int main()
 	PrintExecutionSettings();
 
 	/* INPUT IMAGE LOADING */
-	Vector1D img = ParseCsv1D("Data\\img1.csv");
+	Vector1D img = ParseCsv1D("Data\\digit_7.csv");
 
 	/* MODEL/LAYER DEFINITIONS */
 	InputLayer1D layer_input = InputLayer1D(784);
@@ -68,19 +70,21 @@ int main()
 	/* PROCESSING NEURAL NETWORK INPUT */
 	auto start = std::chrono::high_resolution_clock::now();
 
-	for (int i = 0; i < 100; i++)
+	for (volatile int i = 0; i < N_ITERATIONS; i++)
 	{
 		layer_input.ProcessInput(img);
 	}
 	
 	auto finish = std::chrono::high_resolution_clock::now();
 	auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(finish - start);
-	std::cout << microseconds.count() << " us --main\n";
+	std::cout << microseconds.count() << " us --main" << std::endl << std::endl;
 
 	/* DISPLAYING NEURAL NETWORK OUTPUT */
-	for(auto neuron : layer_output.GetNeuronBuffer())
+
+	for (int i = 0; i < layer_output.Size(); i++)
 	{
-		std::cout << neuron << std::endl;
+		auto digit_flag = layer_output.GetNeuronBuffer().at(i);
+		std::cout << "Digit " << i << " = " << digit_flag << std::endl;
 	}
 
 	return 0;

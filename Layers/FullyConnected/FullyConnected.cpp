@@ -40,9 +40,10 @@ void FullyConnectedLayer::ApplyTransform(void)
 
     PerformMatrixMultiplication(x, y, current_layer_neuron_buffer, m_weights.m_values, m_biases.m_values, next_layer_neuron_buffer);
 
-    std::for_each(
+    std::transform(
         next_layer_neuron_buffer.begin(),
         next_layer_neuron_buffer.end(),
+        next_layer_neuron_buffer.begin(),
         m_fnActivation
     );
 }

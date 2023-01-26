@@ -24,7 +24,7 @@ Vector2D ParseCsv2D(std::string filename) {
 		Vector1D v;                 /* row vector v */
 		std::stringstream s(line);         /* stringstream line */
 		while (getline(s, val, ','))       /* get each value (',' delimited) */
-			v.push_back(std::stoi(val));  /* add to row vector */
+			v.push_back(std::stod(val));  /* add to row vector */
 		array.push_back(v);                /* add row vector to array */
 	}
 
@@ -51,7 +51,7 @@ Vector1D ParseCsv1D(std::string filename) {
 	Vector1D v;                 /* row vector v */
 	std::stringstream s(line);         /* stringstream line */
 	while (getline(s, val, ','))       /* get each value (',' delimited) */
-		v.push_back(std::stoi(val));  /* add to row vector */
+		v.push_back(std::stod(val));  /* add to row vector */
 
 
 	return v;

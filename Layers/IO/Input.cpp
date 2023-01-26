@@ -4,19 +4,20 @@
 
 void InputLayer1D::ApplyTransform()
 {
-	Layer1D* p_next_layer = GetNextLayer();
-	if (nullptr == p_next_layer)
+	Layer1D* p_layer_iterator = GetNextLayer();
+	if (nullptr == p_layer_iterator)
 	{
 		throw NeuralNetException("Cannot apply transform, no next layer specified!");
 	}
 
-	auto& next_layer_buffer = p_next_layer->GetNeuronBuffer();
-	next_layer_buffer = GetNeuronBuffer();
+	auto& input_layer_buffer = GetNeuronBuffer();
+	// Pass data to next layer
+	p_layer_iterator->GetNeuronBuffer() = input_layer_buffer; 
 
-	while (nullptr != p_next_layer)
+	while (nullptr != p_layer_iterator)
 	{
-		p_next_layer->ApplyTransform();
-		p_next_layer = p_next_layer->GetNextLayer();
+		p_layer_iterator->ApplyTransform();
+		p_layer_iterator = p_layer_iterator->GetNextLayer();
 	}
 	
 }
@@ -29,19 +30,20 @@ void InputLayer1D::ProcessInput(const Vector1D& input)
 
 void InputLayer2D::ApplyTransform()
 {
-	Layer2D* p_next_layer = GetNextLayer();
-	if (nullptr == p_next_layer)
+	Layer2D* p_layer_iterator = GetNextLayer();
+	if (nullptr == p_layer_iterator)
 	{
 		throw NeuralNetException("Cannot apply transform, no next layer specified!");
 	}
 
-	auto& next_layer_buffer = p_next_layer->GetNeuronBuffer();
-	next_layer_buffer = GetNeuronBuffer();
+	auto& input_layer_buffer = GetNeuronBuffer();
+	// Pass data to next layer
+	p_layer_iterator->GetNeuronBuffer() = input_layer_buffer;
 
-	while (nullptr != p_next_layer)
+	while (nullptr != p_layer_iterator)
 	{
-		p_next_layer->ApplyTransform();
-		p_next_layer = p_next_layer->GetNextLayer();
+		p_layer_iterator->ApplyTransform();
+		p_layer_iterator = p_layer_iterator->GetNextLayer();
 	}
 }
 

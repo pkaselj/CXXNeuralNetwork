@@ -10,7 +10,7 @@
 //#define TRACE_TIMING_DETAILED
 
 // Ucomment to trace detailed CUDA kernel debug messages
-#define TRACE_CUDA_KERNEL_DETAILED
+//#define TRACE_CUDA_KERNEL_DETAILED
 
 
 // IGNORE

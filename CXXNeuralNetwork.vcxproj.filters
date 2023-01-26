@@ -112,5 +112,8 @@
     <None Include="Data\dense_3_kernel_0.csv" />
     <None Include="Data\img1.csv" />
     <None Include="Data\img7.csv" />
+    <None Include="Data\digit_0.csv" />
+    <None Include="Data\digit_5.csv" />
+    <None Include="Data\digit_7.csv" />
   </ItemGroup>
 </Project>
