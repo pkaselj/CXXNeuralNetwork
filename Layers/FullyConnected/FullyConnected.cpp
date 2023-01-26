@@ -2,8 +2,11 @@
 #include <Exceptions/NeuralNetException.hpp>
 
 #include <string>
+#include <algorithm>
 
-FullyConnectedLayer::FullyConnectedLayer(int layer_size) : Layer1D(layer_size)
+FullyConnectedLayer::FullyConnectedLayer(int layer_size, const ActivationFunction& fnActivation)
+    : Layer1D(layer_size),
+    m_fnActivation(fnActivation)
 {
 
 }
@@ -37,10 +40,11 @@ void FullyConnectedLayer::ApplyTransform(void)
 
     PerformMatrixMultiplication(x, y, current_layer_neuron_buffer, m_weights.m_values, m_biases.m_values, next_layer_neuron_buffer);
 
-    for(auto& number : next_layer_neuron_buffer)
-    {
-        number = (number > 0) ? number : 0;
-    }
+    std::for_each(
+        next_layer_neuron_buffer.begin(),
+        next_layer_neuron_buffer.end(),
+        m_fnActivation
+    );
 }
 
 FullyConnectedLayer& FullyConnectedLayer::LoadWeights(const Weights& weights)

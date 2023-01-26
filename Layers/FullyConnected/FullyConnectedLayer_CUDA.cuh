@@ -7,7 +7,11 @@ class FullyConnectedLayer_CUDA :
     public FullyConnectedLayer
 {
 public:
-    FullyConnectedLayer_CUDA(int size) : FullyConnectedLayer(size)
+    FullyConnectedLayer_CUDA(
+        int size,
+        const ActivationFunction& fnActivation
+    )
+        : FullyConnectedLayer(size, fnActivation)
     {
 
     }

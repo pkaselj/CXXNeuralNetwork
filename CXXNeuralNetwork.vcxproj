@@ -29,7 +29,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Activation\ActivationFunctions.hpp" />
     <ClInclude Include="Exceptions\NeuralNetException.hpp" />
     <CudaCompile Include="Layers\FullyConnected\FullyConnectedLayer_CUDA.cuh" />
     <ClInclude Include="Layers\FullyConnected\FullyConnectedLayer_Serial.hpp" />
@@ -158,7 +159,7 @@
     <ClInclude Include="Layers\FullyConnected\FullyConnected.hpp" />
     <ClInclude Include="Layers\IO\Input.hpp" />
     <ClInclude Include="Layers\IO\Output.hpp" />
-    <ClInclude Include="Layers\Activation\ReLU.hpp" />
+    <ClInclude Include="Layers\Other\SoftmaxLayer.hpp" />
     <ClInclude Include="Types\Types.hpp" />
     <ClInclude Include="Utils\Biases.hpp" />
     <ClInclude Include="Utils\csvParser.hpp" />
@@ -174,16 +175,16 @@
     <ClCompile Include="Layers\FullyConnected\FullyConnected.cpp" />
     <ClCompile Include="Layers\IO\Input.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Layers\Activation\ReLU.cpp" />
+    <ClCompile Include="Layers\Other\SoftmaxLayer.cpp" />
     <ClCompile Include="Utils\Biases.cpp" />
     <ClCompile Include="Utils\csvParser.cpp" />
     <ClCompile Include="Utils\Weights.cpp" />
   </ItemGroup>
-	<ItemGroup Label="Data">
-		<Content Include="Data\*">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
+  <ItemGroup Label="Data">
+    <Content Include="Data\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <None Include="Data\dense_0_bias_0.csv">
       <DeploymentContent>true</DeploymentContent>

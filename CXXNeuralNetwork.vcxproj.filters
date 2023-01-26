@@ -45,13 +45,16 @@
     <ClInclude Include="Layers\IO\Output.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Layers\Activation\ReLU.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Layers\FullyConnected\FullyConnectedLayer_Serial.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils\csvParser.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Activation\ActivationFunctions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Layers\Other\SoftmaxLayer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,13 +80,13 @@
     <ClCompile Include="Layers\IO\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Layers\Activation\ReLU.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Layers\FullyConnected\FullyConnectedLayer_Serial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utils\csvParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Layers\Other\SoftmaxLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

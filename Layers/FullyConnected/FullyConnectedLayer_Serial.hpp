@@ -7,7 +7,14 @@ class FullyConnectedLayer_Serial :
     public FullyConnectedLayer
 {
 public:
-    FullyConnectedLayer_Serial(int size) : FullyConnectedLayer(size) { }
+    FullyConnectedLayer_Serial(
+        int size,
+        const ActivationFunction& fnActivation
+    )
+        : FullyConnectedLayer(size, fnActivation) 
+    {
+
+    }
 
     void PerformMatrixMultiplication(
         int X, int Y,

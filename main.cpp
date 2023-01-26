@@ -14,7 +14,8 @@
 
 #include <Layers/IO/Input.hpp>
 #include <Layers/IO/Output.hpp>
-#include <Layers/Activation/ReLU.hpp>
+#include <Layers/Other/SoftmaxLayer.hpp>
+#include <Activation/ActivationFunctions.hpp>
 #include <Utils/csvParser.hpp>
 #include <Types/Types.hpp>
 
@@ -38,10 +39,11 @@ int main()
 
 	/* MODEL/LAYER DEFINITIONS */
 	InputLayer1D layer_input = InputLayer1D(784);
-	FullyConnectedLayer layer_hidden_0 = FullyConnectedLayer(784);
-	FullyConnectedLayer layer_hidden_1 = FullyConnectedLayer(128);
-	FullyConnectedLayer layer_hidden_2 = FullyConnectedLayer(64);
-	FullyConnectedLayer layer_hidden_3 = FullyConnectedLayer(32);
+	auto layer_hidden_0 = FullyConnectedLayer(784, Activation::ReLU);
+	auto layer_hidden_1 = FullyConnectedLayer(128, Activation::ReLU);
+	auto layer_hidden_2 = FullyConnectedLayer(64,  Activation::ReLU);
+	auto layer_hidden_3 = FullyConnectedLayer(32,  Activation::ReLU);
+	auto layer_softmax  = SoftmaxLayer(10);
 	OutputLayer1D layer_output = OutputLayer1D(10);
 
 	/* LAYER CONNECTIONS */
@@ -50,6 +52,7 @@ int main()
 		->SetNextLayer(&layer_hidden_1)
 		->SetNextLayer(&layer_hidden_2)
 		->SetNextLayer(&layer_hidden_3)
+		->SetNextLayer(&layer_softmax)
 		->SetNextLayer(&layer_output);
 
 	/* LAYER WEIGHT AND BIAS INITIALIZATION */

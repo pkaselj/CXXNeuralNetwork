@@ -1,7 +1,8 @@
 #ifndef FULLY_CONNECTED_HPP
 #define FULLY_CONNECTED_HPP
 
-#include "Layers/Base/Layer1D.hpp"
+#include <Layers/Base/Layer1D.hpp>
+#include <Activation/ActivationFunctions.hpp>
 #include <Utils/Weights.hpp>
 #include <Utils/Biases.hpp>
 
@@ -10,7 +11,7 @@ class FullyConnectedLayer : public Layer1D
 
 public:
 
-    FullyConnectedLayer(int layer_size);
+    FullyConnectedLayer(int layer_size, const ActivationFunction& fnActivation);
 
     virtual ~FullyConnectedLayer();
 
@@ -22,6 +23,7 @@ public:
 private:
     Weights m_weights;
     Biases m_biases;
+    const ActivationFunction& m_fnActivation;
 
 protected:
 
