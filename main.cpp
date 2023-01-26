@@ -1,8 +1,7 @@
 #include <iostream>
 #include <chrono>
 
-// Uncomment to use CUDA accelerated layers
-//#define USE_CUDA
+#include <global_settings.hpp>
 
 #if defined(USE_CUDA)
 #include <Layers/FullyConnected/FullyConnectedLayer_CUDA.cuh>
@@ -35,6 +34,10 @@ const std::string layer_3_biases_file = "Data\\dense_3_bias_0.csv";
 
 int main()
 {
+	/* TRACING SETTINGS */
+	PrintExecutionSettings();
+
+	/* INPUT IMAGE LOADING */
 	Vector1D img = ParseCsv1D("Data\\img1.csv");
 
 	/* MODEL/LAYER DEFINITIONS */

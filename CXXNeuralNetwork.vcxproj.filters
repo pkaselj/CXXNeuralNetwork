@@ -57,6 +57,9 @@
     <ClInclude Include="Layers\Other\SoftmaxLayer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="global_settings.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Layers\FullyConnected\FullyConnected.cpp">

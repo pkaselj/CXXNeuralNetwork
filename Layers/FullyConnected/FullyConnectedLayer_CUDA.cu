@@ -1,5 +1,6 @@
 #include "FullyConnectedLayer_CUDA.cuh"
 
+#include <global_settings.hpp>
 #include <cuda.h>
 
 #include <cuda_runtime_api.h>
@@ -26,7 +27,7 @@ static __global__ void PerformMatrixMultiplicationInCUDA(
 		// Calculate dot product of CurrentLayer vector and Weight's "col" column
 		for (int i = 0; i < X; i++)
 		{
-#if defined(_DEBUG)
+#if defined(TRACE_CUDA_KERNEL_DETAILED)
 			printf("col = %d, i = %d, N[%d] = C[%d] (%lf) * W[%d] (%lf) = (%lf)\n",
 				col, i,
 				col,
@@ -41,7 +42,7 @@ static __global__ void PerformMatrixMultiplicationInCUDA(
 		// Add Bias
 		NextLayerNeurons[col] += Biases[col];
 
-#if defined(_DEBUG)
+#if defined(TRACE_CUDA_KERNEL_DETAILED)
 		printf("col = %d, N = %lf\n", col, NextLayerNeurons[col]);
 #endif
 	}
@@ -129,7 +130,9 @@ void FullyConnectedLayer_CUDA::PerformMatrixMultiplication(
 	int threadsPerBlock = 16;
 	int numBlocks = ceil((1.0f * Y) / threadsPerBlock);
 
+#ifdef TRACE_TIMING_DETAILED
 	auto start = std::chrono::high_resolution_clock::now();
+#endif
 
 	PerformMatrixMultiplicationInCUDA <<<numBlocks, threadsPerBlock >>>(
 		X, Y,
@@ -139,10 +142,11 @@ void FullyConnectedLayer_CUDA::PerformMatrixMultiplication(
 		p_next_layer
 	);
 
-	/* PROCESSING NEURAL NETWORK INPUT */
+#ifdef TRACE_TIMING_DETAILED
 	auto finish = std::chrono::high_resolution_clock::now();
 	auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(finish - start);
 	std::cout << microseconds.count() << " us\n";
+#endif
 
 	cudaMemcpy(
 		NextLayerNeurons.data(),					// Destination Row

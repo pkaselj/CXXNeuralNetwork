@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Activation\ActivationFunctions.hpp" />
+    <ClInclude Include="global_settings.hpp" />
     <ClInclude Include="Exceptions\NeuralNetException.hpp" />
     <CudaCompile Include="Layers\FullyConnected\FullyConnectedLayer_CUDA.cuh" />
     <ClInclude Include="Layers\FullyConnected\FullyConnectedLayer_Serial.hpp" />
